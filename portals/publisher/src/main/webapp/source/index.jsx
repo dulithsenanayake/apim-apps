@@ -22,8 +22,16 @@ import 'fastestsmallesttextencoderdecoder'; // Added to fix TextEncoding issue i
 import { hot } from 'react-hot-loader/root';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { AuthProvider } from "@asgardeo/auth-react";
+import { TokenExchangePlugin } from "@asgardeo/token-exchange-plugin";
 import Publisher from './src/Publisher';
+import authConfig from "./config.json";
 
 // What about production? # https://github.com/gaearon/react-hot-loader#what-about-production
 const HotApp = hot(Publisher);
-ReactDOM.render(<HotApp />, document.getElementById('react-root'));
+ReactDOM.render(
+    <AuthProvider config={authConfig} plugin={ TokenExchangePlugin.getInstance() }>
+        <HotApp />
+    </AuthProvider>
+    , document.getElementById('react-root')
+);
